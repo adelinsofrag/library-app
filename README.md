@@ -1,6 +1,6 @@
-# weather-app
+# mybooks-app
 
-WebApp based on an AP
+WebApp based on an API
 
 ## Hello Stranger
 
