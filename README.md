@@ -6,9 +6,9 @@ WebApp based on an API
 
 ### TASKS
 - [x] Adauga taskuri
-- [ ] Creaza navigation bar + pagini de care mai e nevoie
-- [ ] Adauga resursele in fiecare pagina (CSS, JS, Bootstrap)
-- [ ] Creaza formular
+- [x] Creaza navigation bar + pagini de care mai e nevoie
+- [x] Adauga resursele in fiecare pagina (CSS, JS, Bootstrap)
+- [x] Creaza formular
 - [ ] Foloseste formularul pentru a face request spre API
 - [ ] Preia raspunsul din API si insereaza-l in HTML
 - [ ] Foloseste raspunsul si afiseaza doar datele necesare in HTML
