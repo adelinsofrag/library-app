@@ -30,12 +30,19 @@ function handleData(data) {
   let html = "";
 
   data.forEach((element) => {
+    var bookID=element.key;
+    var bookTitle=element.title;
+    var bookAuthor=element.author_name;
+
+  console.log(bookID)
     html += `
+    
         <div class="card" style="width: 18rem;">
           ${drawIMG(element.cover_i)}
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">${bookTitle}</h5>
+            <h6>${bookAuthor}</h6>
+            <p class="card-text">Book ID: ${bookID}</p>
             <div class="btn-group-vertical" role="group" aria-label="Basic outlined example">
               <button id="past" type="button" class="btn btn-outline-primary">I read</button>
               <button id="present" type="button" class="btn btn-outline-primary">I read now </button>
@@ -43,8 +50,10 @@ function handleData(data) {
             </div>
           </div>
         </div>
+      
       `;
   });
+ 
   
   return (document.getElementById("demo").innerHTML = html);
 }
@@ -53,58 +62,31 @@ function drawIMG(input) {
   return `<img class="card-img-top" src="https://covers.openlibrary.org/b/id/${input}-M.jpg">`;
 }
 //declar cele 3 butoane la click
+
 const pastBooks=document.getElementById("past")
-past.addEventListener('click', addBookToRead())
-function addBookToRead (event){
-  event.preventDefault()
-  addToList(read, bookID)
-}
+past.addEventListener('click', addToList(read, bookID))
+
 
 const presentBooks=document.getElementById("present")
-present.addEventListener('click', addBookToCurrentlyReading())
-function addBookToCurrentlyReading (event){
-  event.preventDefault()
-  addToList(reading, bookID)
-}
+present.addEventListener('click',addToList(reading, bookID))
+
 
 const futureBooks=document.getElementById("future")
-future.addEventListener('click', addBookToWantToRead())
-function addBookToWantToRead(event){
-  event.preventDefault()
-  addToList(wantToRead, bookID)
-}
+future.addEventListener('click',addToList(wantToRead, bookID))
+
 //functia de adaugare carti in liste
-const listType=["read","reading","wantToRead"]
-function addToList (listType, bookID){
-  if(listType!="read"||"reading"||"wantToRead"){
-    alert("the list doesn't exist!")
-  }else if(bookID){
 
-  }else{
-    let list = JSON.parse(localStorage.getItem("myBooks"))
-    list[listType].push(bookID)
-    localStorage.setItem("myBooks", JSON.stringify(list))
-  }
+const listType=["read","reading","wantToRead"]
+let myBooksList = JSON.parse(localStorage.getItem("myBooks"))
+
+function addToList (listType, bookID){
+    myBooksList[listType].push(bookID)
+    localStorage.setItem("myBooks", JSON.stringify(myBooksList))
+  
 }
 
-
-
-
-
-  
-  //obiectul care se va salva in local storage (obiect cu 3 array)
-  let myBooks={
-    "listaCartiCitite":[],
-    "listaCartiInCurs":[],
-    "listaCartiViitoare":[]
-    }
   
 
 
-    function getAllBooks(){
-      document.getElementById("booksAlreadyRead").innerHTML=localStorage.getItem(myBooks.listaCartiCitite)
-      document.getElementById("booksIReadNow").innerHTML=localStorage.getItem(myBooks.listaCartiInCurs)
-      document.getElementById("booksIWantToRead").innerHTML=localStorage.getItem(myBooks.lisCartiCitite)
-
-
-    }
+    
+    
