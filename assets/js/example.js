@@ -5,7 +5,7 @@ function handleKey(event) {
     event.preventDefault();
     var inputElement = document.getElementById("inlineFormInputGroupUsername");
     var val = inputElement.value;
-    console.log(val);
+    //console.log(val);
 
     handleAPIOnInputValue(val);
   }
@@ -30,11 +30,11 @@ function handleData(data) {
   let html = "";
 
   data.forEach((element) => {
-    var bookID=element.key;
-    var bookTitle=element.title;
-    var bookAuthor=element.author_name;
+    var bookID = element.key;
+    var bookTitle = element.title;
+    var bookAuthor = element.author_name;
 
-  console.log(bookID)
+    //console.log(bookID);
     html += `
     
         <div class="card" style="width: 18rem;">
@@ -53,40 +53,30 @@ function handleData(data) {
       
       `;
   });
- 
-  
   return (document.getElementById("demo").innerHTML = html);
 }
 
 function drawIMG(input) {
   return `<img class="card-img-top" src="https://covers.openlibrary.org/b/id/${input}-M.jpg">`;
 }
+
 //declar cele 3 butoane la click
+var pastBooks = document.getElementById("past");
+pastBooks.addEventListener("click", addToList(read, bookID));
 
-const pastBooks=document.getElementById("past")
-past.addEventListener('click', addToList(read, bookID))
+var presentBooks = document.getElementById("present");
+presentBooks.addEventListener("click", addToList(reading, bookID));
 
-
-const presentBooks=document.getElementById("present")
-present.addEventListener('click',addToList(reading, bookID))
-
-
-const futureBooks=document.getElementById("future")
-future.addEventListener('click',addToList(wantToRead, bookID))
+var futureBooks = document.getElementById("future");
+futureBooks.addEventListener("click", addToList(wantToRead, bookID));
 
 //functia de adaugare carti in liste
 
-const listType=["read","reading","wantToRead"]
-let myBooksList = JSON.parse(localStorage.getItem("myBooks"))
+var listType = ["read", "reading", "wantToRead"];
+var myBooksList = JSON.parse(localStorage.getItem("myBooks"));
+console.log(myBooksList);
 
-function addToList (listType, bookID){
-    myBooksList[listType].push(bookID)
-    localStorage.setItem("myBooks", JSON.stringify(myBooksList))
-  
+function addToList(listType, bookID) {
+  myBooksList[listType].push(bookID);
+  localStorage.setItem("myBooks", JSON.stringify(myBooksList));
 }
-
-  
-
-
-    
-    
