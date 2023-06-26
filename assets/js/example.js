@@ -40,6 +40,8 @@ function handleData(data) {
     const card = document.createElement("div");
     card.classList.add("card");
 
+    // La fel ca si inainte, folosesc functia care
+    // apeleaza API-ul pentru a gasi imaginea
     const bookCover = document.createElement("img");
     bookCover.classList.add("img");
     bookCover.src = `${drawIMG(element.cover_i)}`;
@@ -51,6 +53,7 @@ function handleData(data) {
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title");
     cardTitle.innerHTML = `${bookTitle}`;
+    cardTitle.id = "cardtitle";
 
     const cardAuthor = document.createElement("h6");
     cardAuthor.innerHTML = `${bookAuthor}`;
@@ -59,17 +62,44 @@ function handleData(data) {
     cardText.classList.add("card-text");
     cardText.innerHTML = `Book ID: ${bookID}`;
 
+    // Adaugam butoanele la cards si implementam si
+    // addEventListener(), de unde apelam functiile pentru
+    // fiecare buton apasat
+    const doneReadingBtn = document.createElement("button");
+    doneReadingBtn.classList.add("btn", "btn-outline-primary");
+    doneReadingBtn.textContent = "Already read";
+    doneReadingBtn.id = "past";
+    doneReadingBtn.addEventListener("click", function () {
+      console.log(`Done reading ${cardTitle.innerHTML}`);
+    });
+
+    const readingNowBtn = document.createElement("button");
+    readingNowBtn.classList.add("btn", "btn-outline-primary");
+    readingNowBtn.textContent = "Currently Reading";
+    readingNowBtn.id = "present";
+    readingNowBtn.addEventListener("click", readingNowClicked);
+
+    const wishlistBtn = document.createElement("button");
+    wishlistBtn.classList.add("btn", "btn-outline-primary");
+    wishlistBtn.textContent = "Add to wishlist";
+    wishlistBtn.id = "future";
+    wishlistBtn.addEventListener("click", willReadClicked);
+
     // Am adaugat in HTML file un div mare cu clasa container
     // care va "tine" toate rezultatele din search
 
-    // Aici "construim" card-ul prin alaturarea tag-urilor
-    // secundare in card
+    // Aici "afisam" card-ul prin alaturarea child-urilor in card
+    ////// Altfel raman doar in memorie si nu vor aparea niciodata //////
 
     card.appendChild(bookCover);
     card.appendChild(cardBody);
     card.appendChild(cardAuthor);
     card.appendChild(cardTitle);
     card.appendChild(cardText);
+
+    card.appendChild(doneReadingBtn);
+    card.appendChild(readingNowBtn);
+    card.appendChild(wishlistBtn);
 
     // Aici adaugam fiecare card la div-ul container si gata - avem un search result list
     searchContainer.appendChild(card);
@@ -100,7 +130,24 @@ function drawIMG(input) {
   return `https://covers.openlibrary.org/b/id/${input}-M.jpg`;
 }
 
-//declar cele 3 butoane la click
+// Functie pentru cartile citite
+function doneReadingClicked(param) {
+  console.log(param + " was clicked");
+}
+
+// Functie pentru cartile in curs de citire
+function readingNowClicked(bookName1) {
+  bookName1 = document.getElementById("cardtitle").innerHTML;
+  console.log(`Currently reading ${bookName1}`);
+}
+
+// Functie pentru cartile de interes pentru viitor
+function willReadClicked(bookName1) {
+  bookName1 = document.getElementById("cardtitle").innerHTML;
+  console.log(`${bookName1} added to Wishlist`);
+}
+
+/*declar cele 3 butoane la click
 var pastBooks = document.getElementById("past");
 pastBooks.addEventListener("click", addToList(read, bookID));
 
@@ -109,6 +156,7 @@ presentBooks.addEventListener("click", addToList(reading, bookID));
 
 var futureBooks = document.getElementById("future");
 futureBooks.addEventListener("click", addToList(wantToRead, bookID));
+*/
 
 //functia de adaugare carti in liste
 
