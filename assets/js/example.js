@@ -20,21 +20,61 @@ function handleAPIOnInputValue(input) {
   let searchValue = input.replace(" ", "+");
 
   // Pass the searchValue into the API URL and display search results.
-  let source = `https://openlibrary.org/search.json?q=${searchValue}`;
+  const source = `https://openlibrary.org/search.json?q=${searchValue}`;
   fetch(source)
     .then((x) => x.json())
     .then((y) => handleData(y.docs));
 }
 
 function handleData(data) {
+  let searchContainer = document.querySelector("#result-container");
   let html = "";
 
   data.forEach((element) => {
-    var bookID = element.key;
+    //Am adaugat .slice(7) ca sa fie ID-ul mai scurt si mai exact, fara "/works/"
+    var bookID = element.key.slice(7);
     var bookTitle = element.title;
     var bookAuthor = element.author_name;
 
-    //console.log(bookID);
+    //aici se creaza div cards programatic pentru fiecare entry din JSON
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const bookCover = document.createElement("img");
+    bookCover.classList.add("img");
+    bookCover.src = `${drawIMG(element.cover_i)}`;
+    console.log(element.cover_i);
+
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    const cardTitle = document.createElement("h5");
+    cardTitle.classList.add("card-title");
+    cardTitle.innerHTML = `${bookTitle}`;
+
+    const cardAuthor = document.createElement("h6");
+    cardAuthor.innerHTML = `${bookAuthor}`;
+
+    const cardText = document.createElement("p");
+    cardText.classList.add("card-text");
+    cardText.innerHTML = `Book ID: ${bookID}`;
+
+    // Am adaugat in HTML file un div mare cu clasa container
+    // care va "tine" toate rezultatele din search
+
+    // Aici "construim" card-ul prin alaturarea tag-urilor
+    // secundare in card
+
+    card.appendChild(bookCover);
+    card.appendChild(cardBody);
+    card.appendChild(cardAuthor);
+    card.appendChild(cardTitle);
+    card.appendChild(cardText);
+
+    // Aici adaugam fiecare card la div-ul container si gata - avem un search result list
+    searchContainer.appendChild(card);
+
+    /*console.log(bookID);
     html += `
     
         <div class="card" style="width: 18rem;">
@@ -51,13 +91,13 @@ function handleData(data) {
           </div>
         </div>
       
-      `;
+      `;*/
   });
   return (document.getElementById("demo").innerHTML = html);
 }
 
 function drawIMG(input) {
-  return `<img class="card-img-top" src="https://covers.openlibrary.org/b/id/${input}-M.jpg">`;
+  return `https://covers.openlibrary.org/b/id/${input}-M.jpg`;
 }
 
 //declar cele 3 butoane la click
