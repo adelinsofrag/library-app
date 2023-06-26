@@ -21,6 +21,12 @@ function handleAPIOnInputValue(input) {
   // Pass the searchValue into the API URL and display search results.
   let source = `https://openlibrary.org/search.json?q=${searchValue}`;
   fetch(source)
-    .then((x) => x.text())
-    .then((y) => (document.getElementById("demo").innerHTML = y));
+    .then((response) => response.json())
+    .then((response_json) => handleData(response_json["docs"]));
+}
+
+function handleData(data) {
+  data.forEach((element) => {
+    console.log(element.author_name);
+  });
 }
