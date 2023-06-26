@@ -77,13 +77,17 @@ function handleData(data) {
     readingNowBtn.classList.add("btn", "btn-outline-primary");
     readingNowBtn.textContent = "Currently Reading";
     readingNowBtn.id = "present";
-    readingNowBtn.addEventListener("click", readingNowClicked);
+    readingNowBtn.addEventListener("click", function () {
+      console.log(`Currently reading ${cardTitle.innerHTML}`);
+    });
 
     const wishlistBtn = document.createElement("button");
     wishlistBtn.classList.add("btn", "btn-outline-primary");
     wishlistBtn.textContent = "Add to wishlist";
     wishlistBtn.id = "future";
-    wishlistBtn.addEventListener("click", willReadClicked);
+    wishlistBtn.addEventListener("click", function () {
+      console.log(`${cardTitle.innerHTML} is added to the Wishlist`);
+    });
 
     // Am adaugat in HTML file un div mare cu clasa container
     // care va "tine" toate rezultatele din search
@@ -130,7 +134,7 @@ function drawIMG(input) {
   return `https://covers.openlibrary.org/b/id/${input}-M.jpg`;
 }
 
-// Functie pentru cartile citite
+/* Functie pentru cartile citite
 function doneReadingClicked(param) {
   console.log(param + " was clicked");
 }
@@ -145,7 +149,7 @@ function readingNowClicked(bookName1) {
 function willReadClicked(bookName1) {
   bookName1 = document.getElementById("cardtitle").innerHTML;
   console.log(`${bookName1} added to Wishlist`);
-}
+}*/
 
 /*declar cele 3 butoane la click
 var pastBooks = document.getElementById("past");
