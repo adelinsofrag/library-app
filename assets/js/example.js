@@ -30,6 +30,8 @@ function handleData(data) {
   let searchContainer = document.querySelector("#result-container");
   let html = "";
 
+  let myBooks = [];
+
   data.forEach((element) => {
     //Am adaugat .slice(7) ca sa fie ID-ul mai scurt si mai exact, fara "/works/"
     var bookID = element.key.slice(7);
@@ -45,7 +47,7 @@ function handleData(data) {
     const bookCover = document.createElement("img");
     bookCover.classList.add("img");
     bookCover.src = `${drawIMG(element.cover_i)}`;
-    console.log(element.cover_i);
+    //console.log(element.cover_i);
 
     const cardBody = document.createElement("div");
     cardBody.classList.add("card-body");
@@ -61,6 +63,7 @@ function handleData(data) {
     const cardText = document.createElement("p");
     cardText.classList.add("card-text");
     cardText.innerHTML = `Book ID: ${bookID}`;
+    console.log(bookID);
 
     // Adaugam butoanele la cards si implementam si
     // addEventListener(), de unde apelam functiile pentru
@@ -69,6 +72,7 @@ function handleData(data) {
     doneReadingBtn.classList.add("btn", "btn-outline-primary");
     doneReadingBtn.textContent = "Already read";
     doneReadingBtn.id = "past";
+    //  Nu functiona asa  --->>>  doneReadingBtn.addEventListener("click", doneReadingClicked);
     doneReadingBtn.addEventListener("click", function () {
       console.log(`Done reading ${cardTitle.innerHTML}`);
     });
@@ -77,6 +81,7 @@ function handleData(data) {
     readingNowBtn.classList.add("btn", "btn-outline-primary");
     readingNowBtn.textContent = "Currently Reading";
     readingNowBtn.id = "present";
+    //  Nu functiona asa  --->>>  readingNowBtn.addEventListener("click", readingNowClicked);
     readingNowBtn.addEventListener("click", function () {
       console.log(`Currently reading ${cardTitle.innerHTML}`);
     });
@@ -85,6 +90,7 @@ function handleData(data) {
     wishlistBtn.classList.add("btn", "btn-outline-primary");
     wishlistBtn.textContent = "Add to wishlist";
     wishlistBtn.id = "future";
+    //  Nu functiona asa  --->>>  whishlistBtn.addEventListener("click", willReadClicked);
     wishlistBtn.addEventListener("click", function () {
       console.log(`${cardTitle.innerHTML} is added to the Wishlist`);
     });
